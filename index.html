@@ -34,7 +34,7 @@ var canvas=document.getElementById("myCanvas"),
     function touchHandler(e) {
     if(e.touches) {
         paddleX = e.touches[0].pageX - canvas.offsetLeft - paddleWidth/2;
-        console.log('funciona')
+        e.preventDefault();
         
     }
 }
