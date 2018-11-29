@@ -11,16 +11,34 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="980" height="500"></canvas>
+<canvas id="myCanvas" width="980" height="500">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAgUyewPnwYghGPfWRy13yf5q41wY7cZQ84B0l0EDhWy1V0UoxVg"
+         width="100%" height="100%"/>
+    </canvas>
 
 <script>
 
 var canvas=document.getElementById("myCanvas"),
-    ctx=canvas.getContext("2d"),ballRadius=10,
-    x=canvas.width/2,y=canvas.height-30,dx=2,dy=-2,paddleHeight=5,paddleWidth=90,
-    paddleX=(canvas.width-paddleWidth)/2,rightPressed=!1,leftPressed=!1,brickRowCount=25,
-    brickColumnCount=9,brickWidth=35,brickHeight=20,brickPadding=1,brickOffsetTop=50,
-    brickOffsetLeft=40,score=0,lives=5,bricks=[];
+    ctx=canvas.getContext("2d"),
+    ballRadius=10,
+    x=canvas.width/2,
+    y=canvas.height-30,dx=2,dy=-2,
+    paddleHeight=5,
+    paddleWidth=90,
+    paddleX=(canvas.width-paddleWidth)/2,
+    rightPressed=!1,
+    leftPressed=!1,
+    brickRowCount=25,
+    brickColumnCount=9,
+    brickWidth=35,
+    brickHeight=20,
+    brickPadding=1,
+    brickOffsetTop=50,
+    brickOffsetLeft=40,
+    score=0,
+    lives=5,
+    bricks=[];
+    
     for(c=0;c<brickColumnCount;c++)
         for(bricks[c]=[],r=0;r<brickRowCount;
                                        r++)bricks[c][r]={x:0,y:0,status:1};
@@ -43,25 +61,52 @@ var canvas=document.getElementById("myCanvas"),
             for(r=0;r<brickRowCount;r++){
                 var e=bricks[c][r];
                 1==e.status&&x>e.x&&x<e.x+brickWidth+ballRadius&&y>e.y&&y<e.y+brickHeight+ballRadius&&(
-                    dy=-dy,e.status=0,++score==brickRowCount*brickColumnCount&&alert("Felicitaciónes, has ganado!!!"))}}
+                    dy=-dy,
+                    e.status=0,
+                    ++score==brickRowCount*brickColumnCount&&
+                    alert("Felicitaciónes, has ganado!!!"))}}
     function drawBall(){
-        ctx.beginPath(),ctx.arc(x,y,ballRadius,0,2*Math.PI),ctx.fillStyle="#FBD3E9",ctx.fill(),ctx.closePath()}
+        ctx.beginPath(),
+            ctx.arc(x,y,ballRadius,0,2*Math.PI),
+            ctx.fillStyle="#FBD3E9",
+            ctx.fill(),
+            ctx.closePath()}
     function drawPaddle(){
-        ctx.beginPath(),ctx.rect(paddleX,canvas.height-20-paddleHeight,paddleWidth,paddleHeight),
-            ctx.fillStyle="#399",ctx.fill(),ctx.closePath()}
+        ctx.beginPath(),
+            ctx.rect(paddleX,canvas.height-20-paddleHeight,paddleWidth,paddleHeight),
+            ctx.fillStyle="#399",
+            ctx.fill(),
+            ctx.closePath()}
     function drawBricks(){
         for(c=0;c<brickColumnCount;c++)
             for(r=0;r<brickRowCount;r++)
                 if(1==bricks[c][r].status){
                     var e=r*(brickWidth+brickPadding)+brickOffsetLeft,
                         t=c*(brickHeight+brickPadding)+brickOffsetTop;bricks[c][r].x=e,bricks[c][r].y=t,
-                            ctx.beginPath(),ctx.rect(e,t,brickWidth,brickHeight),ctx.fillStyle="#ff8c00",
-                            ctx.fill(),ctx.closePath()}}
+                            ctx.beginPath(),
+                            ctx.rect(e,t,brickWidth,brickHeight),
+                            ctx.fillStyle="#ff8c00",
+                            ctx.fill(),
+                            ctx.closePath()}}
+    
     function drawScore(){
-        ctx.font="27px Arial",ctx.fillStyle="#fff",ctx.fillText("Puntaje: "+score,8,20)}
-    function drawLives(){ctx.font="27px Arial",ctx.fillStyle="#fff",ctx.fillText(lives+"Vidas: ",canvas.width-90,20)}
-    function draw(){ctx.clearRect(0,0,canvas.width,canvas.height),
-        drawBricks(),drawBall(),drawPaddle(),drawScore(),drawLives(),collisionDetection(),
+        ctx.font="27px Arial",
+            ctx.fillStyle="#fff",
+            ctx.fillText("Puntaje: "+score,8,20)}
+    
+    function drawLives(){
+        ctx.font="27px Arial",
+            ctx.fillStyle="#fff",
+            ctx.fillText(lives+"Vidas: ",canvas.width-90,20)}
+    
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height),
+        drawBricks(),
+            drawBall(),
+            drawPaddle(),
+            drawScore(),
+            drawLives(),
+            collisionDetection(),
         (x+dx>canvas.width-ballRadius||x+dx<ballRadius)&&(dx=-dx),
         y+dy<ballRadius?dy=-dy:y+dy>canvas.height-ballRadius-25&&(x>paddleX&&x<paddleX+paddleWidth?dy=-dy:
                                                                   --lives?(x=canvas.width/2,y=canvas.height-30,
@@ -69,7 +114,8 @@ var canvas=document.getElementById("myCanvas"),
                                                                   (alert("Has perdido el juego! Vuelve a intentarlo!!!"),
                                                                    document.location.reload())),
         rightPressed&&paddleX<canvas.width-paddleWidth?paddleX+=7:leftPressed&&paddleX>0&&(paddleX-=7),
-        x+=dx,y+=dy,requestAnimationFrame(draw)}
+        x+=dx,y+=dy,requestAnimationFrame(draw),
+            
     document.addEventListener("keydown",keyDownHandler,!1),
         document.addEventListener("keyup",keyUpHandler,!1),
         document.addEventListener("mousemove",mouseMoveHandler,!1),
