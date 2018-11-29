@@ -6,7 +6,7 @@
     <link href="main.css" rel="stylesheet" />
     <style>
     	* { padding: 0; margin: 0; }
-    	canvas { background-image: url("img/universo.jpg"); display: block; margin: 0 auto; }
+    	
     </style>
 </head>
 <body>
@@ -34,14 +34,13 @@ var canvas=document.getElementById("myCanvas"),
     brickPadding=1,
     brickOffsetTop=50,
     brickOffsetLeft=40,
-    scoreA=0,
+    
     score=0,
-    nivel = 0,
+    
     lives=5,
     bricks=[];
     
-     var boom = document.createElement("audio");
-     boom.src = "http://sonidosmp3gratis.com/sounds/000215224_prev.mp3"
+     
     
     for(c=0;c<brickColumnCount;c++)
         for(bricks[c]=[],r=0;r<brickRowCount;
@@ -72,36 +71,13 @@ var canvas=document.getElementById("myCanvas"),
                 1==e.status&&x>e.x&&x<e.x+brickWidth+ballRadius&&y>e.y&&y<e.y+brickHeight+ballRadius&&(
                     dy=-dy,
                     e.status=0,
-                    ++scoreA==brickRowCount*brickColumnCount&&
-                    boom.play(),
+                    ++score==brickRowCount*brickColumnCount&&
+                    
                     alert("Felicitaciónes, has ganado!!!"))}
-                           if(scoreA == brickRowCount*brickColumnCount) {
-                            aumentarNivel();
-                        }
+                           
     }
     
-    function playSonido(s) {
-         s.currentTime = 0;
-         s.play();
-     }
-
-     function aumentarNivel() {
-         alert("Felicidades has pasado de nivel")
-         nivel++;
-         drawBricks();
-         nivelBola();
-         scoreA = score;
-         scoreA = 0;
-     }
-    
-         var bola = {
-         x : canvas.width/2,
-         y : canvas.height/2,
-         ballRadius : 5,
-         dx : 2,
-         dy : 2,
-         
-     };
+   
     
     function drawBall(){
         ctx.beginPath(),
@@ -110,15 +86,7 @@ var canvas=document.getElementById("myCanvas"),
             ctx.fill(),
             ctx.closePath()}
     
-    function nivelBola() {
-         bola.x = canvas.width/2;
-         bola.y = canvas.height/2;
-         bola.dx = Math.abs (bola.dx);
-         bola.dy = Math.abs (bola.dy);
-         bola.dx++;
-         bola.dy++;
-
-     }
+   
     
     function drawPaddle(){
         ctx.beginPath(),
@@ -142,7 +110,7 @@ var canvas=document.getElementById("myCanvas"),
     function drawScore(){
         ctx.font="27px Arial",
             ctx.fillStyle="#fff",
-            ctx.fillText("Puntaje: "+scoreA,8,20)}
+            ctx.fillText("Puntaje: "+score,8,20)}
     
     function drawLives(){
         ctx.font="27px Arial",
